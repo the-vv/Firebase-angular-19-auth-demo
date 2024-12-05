@@ -69,7 +69,11 @@ export class AppComponent {
       .catch((error) => {
         // Handle error.
         console.error('Microsoft sign in error:', error);
-        this.error = error;
+        this.error = {
+          code: error.code,
+          message: error.message,
+          error
+        };
       });
   }
 }
