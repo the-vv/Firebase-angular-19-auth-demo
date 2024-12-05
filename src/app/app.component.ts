@@ -56,7 +56,11 @@ export class AppComponent {
 
   googleSignIn() {
     this.signOut();
-    signInWithPopup(this._auth, new GoogleAuthProvider()).catch(error => {
+    const provider = new GoogleAuthProvider();
+    provider.setCustomParameters({
+      prompt: 'select_account'
+    })
+    signInWithPopup(this._auth, provider).catch(error => {
       console.error('Google sign in error:', error);
       this.error = {
         code: error.code,
@@ -69,6 +73,9 @@ export class AppComponent {
   microsoftSignIn() {
     this.signOut();
     const provider = new OAuthProvider('microsoft.com');
+    provider.setCustomParameters({
+      prompt: 'select_account'
+    })
     signInWithPopup(this._auth, provider)
       .then((result) => {
         console.log('Microsoft sign in result:', result);
