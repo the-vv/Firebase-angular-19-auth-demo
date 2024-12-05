@@ -56,7 +56,14 @@ export class AppComponent {
 
   googleSignIn() {
     this.signOut();
-    signInWithPopup(this._auth, new GoogleAuthProvider());
+    signInWithPopup(this._auth, new GoogleAuthProvider()).catch(error => {
+      console.error('Google sign in error:', error);
+      this.error = {
+        code: error.code,
+        message: error.message,
+        error
+      };
+    })
   }
 
   microsoftSignIn() {
